@@ -3,7 +3,7 @@
 A modern & professional web-based platform for discovering, managing, and renting residential and commercial properties.
 
 <p align="center">
-  <img src="logo.jpg" alt="Aashray Logo" width="120"/>
+  <img src="favocin.png" alt="Aashray Logo" width="120"/>
 </p>
 
 ---
