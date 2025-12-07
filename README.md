@@ -3,18 +3,21 @@
 A modern & professional web-based platform for discovering, managing, and renting residential and commercial properties.
 
 <p align="center">
-  <img src="favocin.png" alt="Aashray Logo" width="120"/>
+  <img src="logo.png" alt="Aashray Logo" width="120"/>
 </p>
 
 ---
 
 ## 🔰 Tech Stack  
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Bootstrap 5](https://img.shields.io/badge/Bootstrap%205-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7E018?style=for-the-badge&logo=javascript&logoColor=black)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
 
 ---
 
@@ -25,65 +28,31 @@ It serves two main roles:
 - **Tenants/Users** — browse properties, apply for rent, make payments, and manage their profiles  
 - **Admins** — manage properties, tenants, payments, queries, invoices, and feedback  
 
-Developed as part of the **MCA In-House Project**.
-
 ---
 
 ## 📌 Features  
 
 ### 👤 User Features  
 - Create account & login  
-- View property listings  
-- Search & filter by type (PG, Flat, Farmhouse, Office, etc.)  
+- View property listings
+- Check our testimonial's review
+- Search & filter by type & Location (PG, Flat, Farmhouse, Office, etc.)  
 - Apply for rent with verification documents  
-- Make online payments (UPI/Card)  
-- Download invoices  
+- Make online payments (UPI/Card etc.)  
+- View / Download invoice  
 - Submit feedback  
 - Manage profile  
-- Send contact queries  
+- Send queries via submitting Contact request 
 
 ### 👨‍💼 Admin Features  
 - Admin login  
 - Manage all property listings  
 - Manage tenants & users  
 - View booking details & invoices  
-- Manage payments  
-- View contact requests & feedback  
-- Manage bank details  
+- View payments  
+- View & Manage contact requests & feedbacks  
+- View bank details  
 - Dashboard overview  
-
----
-
-## 🗂️ Folder Structure (Extracted From ZIP)
-
-```
-Aashray Reports/
-│
-├── 1 - Proposal/
-│   ├── Project Proposal.docx
-│   └── Project Proposal.pdf
-│
-├── 2 - Report/
-│   ├── 1st Progress Report/
-│   ├── 2nd Progress Report/
-│   ├── 3rd Progress Report/
-│   ├── 4th Progress Report/
-│   └── Final Documentation Drafts/
-│
-├── 3 - Final Documentation/
-│   └── Aashray Final Report (Multiple Versions).pdf
-│
-├── 4 - PPT/
-│   └── Aashray.pptx
-│
-└── Report Images/
-    ├── 1.png
-    ├── 2.png
-    ├── 3.png
-    ├── 4.png
-    ├── 5.png
-    └── Logo.png
-```
 
 ---
 
@@ -97,10 +66,9 @@ Aashray Reports/
 ### **Software**
 - Windows OS  
 - VS Code  
-- Chrome Browser  
-- PHP  
-- MySQL  
-- XAMPP/WAMP/LAMP  
+- Any Browser  
+- MySQL Database 
+- XAMPP/WAMP/LAMP Server  
 
 ---
 
@@ -124,7 +92,8 @@ The system uses a relational MySQL database including:
 ## 🏗 System Design  
 ### Included in documentation:
 - Context Level DFD  
-- Level-1 DFD (Admin & User)  
+- Level-1 DFD (Admin & User)
+- Level-2 DFD (Admin & User)
 - Data Dictionary  
 - ER Concepts  
 - Scheduling Plan  
@@ -152,31 +121,4 @@ The system uses a relational MySQL database including:
 
 ---
 
-## 👥 Team  
-- **Smith S. Patel**
-  
----
-
-## 📚 References  
-- W3Schools  
-- PHP.net  
-- GeeksforGeeks  
-- PHPForm  
-- TutorialsPoint
-
----
-
-## 📝 Screenshots Version  
-A separate README version *with screenshots* can be generated whenever you upload updated screenshots or instruct me to use the images in the ZIP.
-
----
-
-## 📦 Final Notes  
-This README combines:  
-✔ Latest PDF documentation  
-✔ ZIP (proposal, reports, PPT)  
-✔ Hybrid modern–professional formatting  
-
----
-
-Made with ❤️ for MCA Project Submission.
+Made with ❤️ by Sp
