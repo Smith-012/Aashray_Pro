@@ -233,6 +233,8 @@ Provides communication channels between users and admin:
 
 ---
 
-## <p align="center">Made with ❤️ by Sp</p>
+<p align="center">
+    Made with ❤️ by Sp
+</p>
 
 ---
