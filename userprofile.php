@@ -54,7 +54,6 @@ include 'header.php';
                             exit;
                         }
                         $stmt->close();
-                        $conn->close();
                     } else {
                         echo '<div class="alert alert-danger">User not logged in</div>';
                         exit;

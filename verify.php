@@ -108,7 +108,7 @@ $result = $stmt->get_result();
         </script>
     <?php
     endif;
-    $conn->close();
+    // Note: $conn is closed automatically at end of request - do not close manually
     ?>
 </body>
 
