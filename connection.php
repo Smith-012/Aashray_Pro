@@ -1,5 +1,5 @@
 <?php
-// Smart Database Connection
+// Smart Database Connection (Vercel & Local)
 $is_local = empty(getenv('DB_HOST'));
 
 if ($is_local) {
@@ -8,22 +8,25 @@ if ($is_local) {
     $username = "root";
     $password = "";
     $dbname = "gp2530_db";
+    $dbport = 3306;
 } else {
-    // Live Cloud MySQL Settings (Set these in Vercel environment variables!)
+    // Vercel Environment Variables
     $servername = getenv('DB_HOST') ?: "";
     $username = getenv('DB_USER') ?: "";
     $password = getenv('DB_PASSWORD') ?: "";
     $dbname = getenv('DB_NAME') ?: "";
+    $dbport = (int)(getenv('DB_PORT') ?: 3306);
 }
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+$conn = mysqli_init();
 
-// ==================== SECURITY SUITE: AUTOMATIC CSRF PROTECTION ====================
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Aiven requires SSL connections. We configure mysqli to use SSL before connecting.
+if (!$is_local) {
+    $conn->ssl_set(NULL, NULL, NULL, NULL, NULL);
+    $conn->real_connect($servername, $username, $password, $dbname, $dbport, NULL, MYSQLI_CLIENT_SSL);
+} else {
+    // Local XAMPP connection (no SSL)
+    $conn->real_connect($servername, $username, $password, $dbname, $dbport);
 }
 
 // 1. Generate Session CSRF Token

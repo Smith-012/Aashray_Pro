@@ -1,0 +1,11 @@
+# Uploaded property images (we will keep folder structure, but ignore uploaded contents)
+adminside/uploads/*
+!adminside/uploads/.gitkeep
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
