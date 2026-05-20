@@ -1,8 +1,9 @@
 <?php
+include('connection.php');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-include('connection.php');
+
 function sanitize($data)
 {
     return htmlspecialchars(stripslashes(trim($data)));
