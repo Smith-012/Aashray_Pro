@@ -3,6 +3,18 @@
     {
       "src": "**/*.php",
       "use": "vercel-php@0.7.2"
+    },
+    {
+      "src": "assets/css/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/js/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "logo.png",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
