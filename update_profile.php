@@ -1,6 +1,6 @@
 <?php
-session_start();
 include('connection.php');
+session_start();
 if (isset($_POST['saveBtn'])) {
     $firstname = trim($_POST['first_name']);
     $lastname = trim($_POST['last_name']);

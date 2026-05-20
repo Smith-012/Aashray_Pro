@@ -1,4 +1,5 @@
 <?php
+include 'connection.php';
 session_start();
 header('Content-Type: application/json');
 if (!isset($_SESSION['logged_in_user'])) {
