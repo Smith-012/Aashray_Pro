@@ -1,0 +1,5 @@
+assets/img/
+adminside/uploads/
+assets/database/
+*.sql
+.git/
