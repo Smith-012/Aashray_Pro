@@ -1,9 +1,10 @@
 <?php
+include('connection.php');
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 $isLoggedIn = isset($_SESSION['logged_in_user']);
-include('connection.php');
 // Dynamic Error Reporting (Only show errors on localhost)
 $is_local = empty(getenv('DB_HOST'));
 

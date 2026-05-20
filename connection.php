@@ -29,6 +29,12 @@ if (!$is_local) {
     $conn->real_connect($servername, $username, $password, $dbname, $dbport);
 }
 
+// --- Vercel Session Handler Registration ---
+require_once __DIR__ . '/session_handler.php';
+$handler = new DatabaseSessionHandler($conn);
+session_set_save_handler($handler, true);
+// -------------------------------------------
+
 // 1. Generate Session CSRF Token
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
