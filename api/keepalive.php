@@ -25,66 +25,37 @@ function load_env_config() {
         'user'     => getenv('DB_USER') ?: 'root',
         'password' => getenv('DB_PASSWORD') ?: '',
         'database' => getenv('DB_NAME') ?: 'aashray',
-        'port'     => (int)(getenv('DB_PORT') ?: 3306)
+        'port'     => getenv('DB_PORT') ?: 3306
     ];
-    
-    // If .env file exists, parse it (for local testing)
-    if (file_exists($env_file)) {
-        $lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-                list($key, $value) = explode('=', $line, 2);
-                $key = trim($key);
-                $value = trim($value, ' "\'');
-                
-                if ($key === 'DB_HOST') $config['host'] = $value;
-                if ($key === 'DB_USER') $config['user'] = $value;
-                if ($key === 'DB_PASSWORD') $config['password'] = $value;
-                if ($key === 'DB_NAME') $config['database'] = $value;
-                if ($key === 'DB_PORT') $config['port'] = (int)$value;
-            }
-        }
-    }
     
     return $config;
 }
 
-// JSON Response Helper
+// Send JSON response
 function json_response($status, $message, $data = null, $http_code = 200) {
     header('Content-Type: application/json');
     http_response_code($http_code);
     
     $response = [
-        'status' => $status,
-        'message' => $message,
+        'status'    => $status,
+        'message'   => $message,
         'timestamp' => date('Y-m-d H:i:s'),
-        'server' => gethostname()
+        'server'    => $_SERVER['SERVER_ADDR'] ?? 'unknown'
     ];
     
     if ($data !== null) {
         $response['data'] = $data;
     }
     
-    echo json_encode($response, JSON_PRETTY_PRINT);
+    echo json_encode($response);
     exit;
 }
 
-// CORS headers
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
-
-// Handle preflight
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
-// Load configuration
-$db_config = load_env_config();
-
+// Main keep-alive logic
 try {
-    // Create mysqli connection
+    $db_config = load_env_config();
+    
+    // Create connection
     $conn = new mysqli(
         $db_config['host'],
         $db_config['user'],
@@ -95,27 +66,28 @@ try {
     
     // Check connection
     if ($conn->connect_error) {
-        json_response('error', 'Database connection failed', null, 500);
+        json_response('error', 'Database connection failed', [
+            'error' => $conn->connect_error
+        ], 500);
     }
     
-    // Set charset
-    $conn->set_charset('utf8mb4');
-    
-    // Execute keep-alive query
-    $query = "SELECT 1 as keepalive, NOW() as timestamp, DATABASE() as database";
+    // Execute keep-alive query (read-only)
+    $query = "SELECT 1 as keepalive, NOW() as timestamp, DATABASE() as `database`";
     $result = $conn->query($query);
     
     if (!$result) {
-        json_response('error', 'Keep-alive query failed', ['error' => $conn->error], 500);
+        json_response('error', 'Keep-alive query failed', [
+            'error' => $conn->error
+        ], 500);
     }
     
     $data = $result->fetch_assoc();
     $result->free();
     
     $response_data = [
-        'database' => $db_config['database'],
+        'database'    => $db_config['database'],
         'server_time' => $data['timestamp'],
-        'keep_alive' => $data['keepalive'] === 1
+        'keep_alive'  => $data['keepalive'] === 1
     ];
     
     $conn->close();
@@ -123,6 +95,8 @@ try {
     json_response('success', 'Database keep-alive check passed', $response_data, 200);
     
 } catch (Exception $e) {
-    json_response('error', 'An error occurred', ['exception' => $e->getMessage()], 500);
+    json_response('error', 'An error occurred', [
+        'exception' => $e->getMessage()
+    ], 500);
 }
 ?>
