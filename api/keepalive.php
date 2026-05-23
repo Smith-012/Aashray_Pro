@@ -87,7 +87,7 @@ try {
     $response_data = [
         'database'    => $db_config['database'],
         'server_time' => $data['timestamp'],
-        'keep_alive'  => $data['keepalive'] === 1
+        'keep_alive'  => (int)$data['keepalive'] === 1
     ];
     
     $conn->close();
