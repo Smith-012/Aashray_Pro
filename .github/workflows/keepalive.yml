@@ -1,0 +1,46 @@
+name: Database Keep-Alive
+
+on:
+  schedule:
+    # Every 5 minutes
+    - cron: '*/5 * * * *'
+  
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger database keep-alive
+        run: |
+          echo "🔄 Triggering database keep-alive..."
+          echo "⏰ Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+          
+          # Make the request and capture response
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            -X GET "https://aashray-pro.vercel.app/api/keepalive.php" \
+            -H "User-Agent: GitHub-Actions-Keepalive" \
+            -H "Accept: application/json")
+          
+          # Extract status code (last line)
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          
+          # Extract response body (all but last line)
+          BODY=$(echo "$RESPONSE" | head -n-1)
+          
+          echo "📊 Response:"
+          echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
+          echo ""
+          echo "✅ HTTP Status: $HTTP_CODE"
+          echo ""
+          
+          # Fail if status is not 200
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ ERROR: Keep-alive failed with status $HTTP_CODE"
+            exit 1
+          fi
+          
+          echo "✅ Keep-alive successful!"
