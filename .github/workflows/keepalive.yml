@@ -2,45 +2,42 @@ name: Database Keep-Alive
 
 on:
   schedule:
-    # Every 5 minutes
-    - cron: '*/10 * * * *'
-  
-  # Allow manual trigger from GitHub Actions tab
+    - cron: '*/10 * * * *'     # every 10 minutes (UTC). Change to '*/5 * * * *' for every 5
   workflow_dispatch:
+
+concurrency:
+  group: keepalive-job
+  cancel-in-progress: false
 
 jobs:
   keepalive:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Trigger database keep-alive
+      - name: Trigger database keep-alive (with retries)
         run: |
-          echo "🔄 Triggering database keep-alive..."
-          echo "⏰ Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          echo ""
-          
-          # Make the request and capture response
-          RESPONSE=$(curl -s -w "\n%{http_code}" \
-            -X GET "https://aashray-pro.vercel.app/api/keepalive.php" \
-            -H "User-Agent: GitHub-Actions-Keepalive" \
-            -H "Accept: application/json")
-          
-          # Extract status code (last line)
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          
-          # Extract response body (all but last line)
-          BODY=$(echo "$RESPONSE" | head -n-1)
-          
-          echo "📊 Response:"
-          echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
-          echo ""
-          echo "✅ HTTP Status: $HTTP_CODE"
-          echo ""
-          
-          # Fail if status is not 200
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "❌ ERROR: Keep-alive failed with status $HTTP_CODE"
-            exit 1
-          fi
-          
-          echo "✅ Keep-alive successful!"
+          set -euo pipefail
+          URL="https://aashray-pro.vercel.app/api/keepalive.php"
+          ATTEMPTS=3
+          SLEEP=5
+          attempt=1
+          while [ $attempt -le $ATTEMPTS ]; do
+            echo "Attempt #$attempt — $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            RAW=$(curl -s -w "\n%{http_code}" -X GET "$URL" -H "User-Agent: GitHub-Actions-Keepalive" -H "Accept: application/json")
+            HTTP_CODE=$(echo "$RAW" | tail -n1)
+            BODY=$(echo "$RAW" | head -n -1)
+            echo "Response body:"
+            echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
+            echo "HTTP Status: $HTTP_CODE"
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "Success on attempt #$attempt"
+              exit 0
+            fi
+            echo "Not successful (status $HTTP_CODE)."
+            if [ $attempt -lt $ATTEMPTS ]; then
+              echo "Sleeping $SLEEP seconds before retry..."
+              sleep $SLEEP
+            fi
+            attempt=$((attempt+1))
+          done
+          echo "All $ATTEMPTS attempts failed. Exiting with failure."
+          exit 1
