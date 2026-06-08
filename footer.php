@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
                     <a href="404error.php" class="facebook social-link" title="https://facebook.com/aashray_25"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com/_.aquarius._012" class="instagram social-link" title="https://www.instagram.com/_.aquarius._012"><i class="bi bi-instagram"></i></a>
                     <a href="https://in.linkedin.com/in/smith-patel-37a474245" class="linkedin social-link" title="https://in.linkedin.com/in/smith-patel-37a474245"><i class="bi bi-linkedin"></i></a>
-                    <a href="https://www.instagram.com/_.aquarius._012" class="github social-link" title="https://www.instagram.com/_.aquarius._012"><i class="bi bi-github"></i></a>
+                    <a href="https://github.com/Smith-012" class="github social-link" title="https://github.com/Smith-012"><i class="bi bi-github"></i></a>
                 </div>
             </div>
         </div>
