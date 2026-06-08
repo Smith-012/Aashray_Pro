@@ -138,11 +138,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             <div class="col-lg-3 col-md-6">
                 <h4>Follow Us</h4>
                 <div class="social-links d-flex">
-                    <a href="404error.php" class="twitter social-link" title="https://x.com/aashray_25"><i class="bi bi-twitter-x"></i></a>
+                    <a href="https://www.threads.net/@_.aquarius._012" class="twitter social-link" title="https://www.threads.net/@_.aquarius._012"><i class="bi bi-threads"></i></a>
                     <a href="404error.php" class="facebook social-link" title="https://facebook.com/aashray_25"><i class="bi bi-facebook"></i></a>
-                    <a href="404error.php" class="instagram social-link" title="https://instagram.com/_s.p._1"><i class="bi bi-instagram"></i></a>
-                    <a href="404error.php" class="linkedin social-link" title="https://linkedin.com/aashray_25"><i class="bi bi-linkedin"></i></a>
-                    <a href="404error.php" class="github social-link" title="https://github.com/Smith-0112"><i class="bi bi-github"></i></a>
+                    <a href="https://www.instagram.com/_.aquarius._012" class="instagram social-link" title="https://www.instagram.com/_.aquarius._012"><i class="bi bi-instagram"></i></a>
+                    <a href="https://in.linkedin.com/in/smith-patel-37a474245" class="linkedin social-link" title="https://in.linkedin.com/in/smith-patel-37a474245"><i class="bi bi-linkedin"></i></a>
+                    <a href="https://www.instagram.com/_.aquarius._012" class="github social-link" title="https://www.instagram.com/_.aquarius._012"><i class="bi bi-github"></i></a>
                 </div>
             </div>
         </div>
